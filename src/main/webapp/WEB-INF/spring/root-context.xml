@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean class="com.yr.computer.Case" id="case">
+		<constructor-arg name="mainBoard" ref="mainBoard" />
+	</bean>
+	
+	<bean class="com.yr.computer.MainBoard" id="mainBoard">
+		<!-- cpu는 참조변수. reference타입 객체를 생성 해야하기 때문-->
+		<property name="cpu" ref="cpu" />
+						<!-- 참조주소를 넣음 -->
+		<property name="hardDisk" ref="hardDisk" />
+		<property name="vga" ref="vga"/>
+		<property name="ram" ref="ram"/>
+	</bean>
+
+
+	<bean class="com.yr.computer.Vga" id="vga">
+		<constructor-arg type="java.lang.Integer" value="4" />
+		<constructor-arg type="java.lang.String" value="NVIDIA"/>
+	</bean>
+	
+	<bean class="com.yr.computer.Ram" id="ram">
+		<constructor-arg name="size" value="4"></constructor-arg>
+		<constructor-arg name="company" value="HYNICS"></constructor-arg>
+	</bean>
+	
+	<!-- Cpu cpu = new Cpu("i7", "intel"); -->
+	<!-- 보통은 value를 넣지 않고 시작함 -->
+	<bean class="com.yr.computer.Cpu" id="cpu"> 
+							<!-- default 생성자가 있기 때문에 값을 넣지 않아도 에러 X -->
+		<!-- 주입 방법 - index, name, type -->	
+		<constructor-arg index="0">
+			<value>i7</value>
+		</constructor-arg>
+		<constructor-arg index="1" value="intel" />
+	</bean>
+
+	<!-- HardDisk hardDisk = new HardDisk(); -->
+	<bean class="com.yr.computer.HardDisk" id ="hardDisk">	
+											<!-- id=변수명 -->
+		<!-- hardDisk.setBrand("samsung"); -->
+		<property name="brand">
+			<value>samsung</value>
+		</property>
+		<property name="size" value="100"></property>	
+	</bean>
+		
+		
+</beans>
